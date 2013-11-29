@@ -1,4 +1,4 @@
-package com.thewonggei.regexTester;
+package com.thewonggei.regexTester.junit;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -6,10 +6,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.runner.Runner;
+import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.Suite;
 import org.junit.runners.model.FrameworkMethod;
+import org.junit.runners.model.Statement;
 
-public class RegexSuite extends Suite {
+public class RegexTestSuite extends Suite {
 	private List<RegexPojo> regexTests;
 	private static final List<Runner> NO_RUNNERS = Collections.<Runner>emptyList();
 	private final ArrayList<Runner> runners = new ArrayList<Runner>();
@@ -17,7 +19,7 @@ public class RegexSuite extends Suite {
 	/**
      * Only called reflectively. Do not use programmatically.
      */
-    public RegexSuite(Class<?> klass) throws Throwable {
+    public RegexTestSuite(Class<?> klass) throws Throwable {
         super(klass, NO_RUNNERS);
         regexTests = pullRegexTestStringsFromTestClass();
         createRunnersForParameters();
@@ -64,3 +66,41 @@ public class RegexSuite extends Suite {
     }
 
 }
+
+class RegexRunner extends BlockJUnit4ClassRunner {
+	private RegexPojo regexTest;
+	
+	public RegexRunner(Class<?> clazz, RegexPojo regexTest) throws Exception {
+		super(clazz);
+		this.regexTest = regexTest;
+	}
+
+	@Override
+	protected Statement methodInvoker(FrameworkMethod method, Object test) {
+		RegexTestStatement statement = new RegexTestStatement(super.methodInvoker(method, test),
+				test.getClass().getAnnotation(Regex.class).value(),
+				regexTest);
+		return statement;
+	}
+		
+    @Override 
+    protected String getName() { 
+    	if( regexTest.shouldItMatch ) {
+    		return String.format("regex_should_match_%s", regexTest.testString);
+    	}
+    	else {
+    		return String.format("regex_should_not_match_%s", regexTest.testString);
+    	}
+    }
+    
+    @Override// The name of the test method 
+    protected String testName(final FrameworkMethod method) { 
+    	if( regexTest.shouldItMatch ) {
+    		return String.format("regex_should_match_%s", regexTest.testString);
+    	}
+    	else {
+    		return String.format("regex_should_not_match_%s", regexTest.testString);
+    	}
+    } 
+}
+

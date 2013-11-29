@@ -1,4 +1,4 @@
-package com.thewonggei.regexTester;
+package com.thewonggei.regexTester.junit;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,7 +6,12 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(value=RegexSuite.class)
+import com.thewonggei.regexTester.junit.Regex;
+import com.thewonggei.regexTester.junit.RegexPojo;
+import com.thewonggei.regexTester.junit.RegexTestSuite;
+import com.thewonggei.regexTester.junit.RegexTestStrings;
+
+@RunWith(value=RegexTestSuite.class)
 @Regex(value="^xan.*")
 public class SampleParameterizedRegexTest {
 	

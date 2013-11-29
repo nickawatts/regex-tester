@@ -1,4 +1,4 @@
-package com.thewonggei.regexTester;
+package com.thewonggei.regexTester.junit;
 
 public class RegexPojo {
 	public boolean shouldItMatch;

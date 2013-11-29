@@ -1,4 +1,4 @@
-package com.thewonggei.regexTester;
+package com.thewonggei.regexTester.junit.examples;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,8 +10,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import com.thewonggei.regexTester.junit.RegexPojo;
+
 @RunWith(value=Parameterized.class)
-public class SampleRegexTest {
+public class SampleTraditionalRegexTestWithJUnit {
 	private RegexPojo rpojo;
 	private String regex = "^xan.*";
 	
@@ -26,7 +28,7 @@ public class SampleRegexTest {
 		});
 	}
 	
-	public SampleRegexTest(RegexPojo rpojo) {
+	public SampleTraditionalRegexTestWithJUnit(RegexPojo rpojo) {
 		this.rpojo = rpojo;
 	}
 	
