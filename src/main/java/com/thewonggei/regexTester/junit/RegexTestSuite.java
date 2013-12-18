@@ -11,6 +11,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 
+import com.thewonggei.regexTester.RegexTestStringsNotFoundException;
+
 public class RegexTestSuite extends Suite {
 	private List<RegexPojo> regexTests;
 	private static final List<Runner> NO_RUNNERS = Collections.<Runner>emptyList();
@@ -61,12 +63,16 @@ public class RegexTestSuite extends Suite {
             }
         }
 
-        throw new Exception("No public static method annotated with @RegexTestStrings on class "
-                + getTestClass().getName());
+        throw new RegexTestStringsNotFoundException(getTestClass().getClass());
     }
 
 }
 
+/**
+ * 
+ * @author Nick Watts
+ *
+ */
 class RegexRunner extends BlockJUnit4ClassRunner {
 	private RegexPojo regexTest;
 	
@@ -77,9 +83,16 @@ class RegexRunner extends BlockJUnit4ClassRunner {
 
 	@Override
 	protected Statement methodInvoker(FrameworkMethod method, Object test) {
-		RegexTestStatement statement = new RegexTestStatement(super.methodInvoker(method, test),
-				test.getClass().getAnnotation(Regex.class).value(),
-				regexTest);
+		RegexTestStatement statement = null;
+//		if( getTestClass().getJavaClass().isAnnotationPresent(Regex.class) ) {
+			statement = new RegexTestStatement(super.methodInvoker(method, test),
+					test.getClass().getAnnotation(Regex.class).value(),
+					regexTest);
+//		}
+//		else {
+//			Throwable t = new RegexAnnotationNotFoundException(getTestClass().getClass());
+//			this.collectInitializationErrors(Arrays.asList(t));
+//		}
 		return statement;
 	}
 		
