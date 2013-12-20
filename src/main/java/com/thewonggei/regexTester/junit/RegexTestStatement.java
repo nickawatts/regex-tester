@@ -1,6 +1,8 @@
 package com.thewonggei.regexTester.junit;
 
-import static org.junit.Assert.assertEquals;
+import static com.thewonggei.regexTester.RegexMatches.doesMatchRegex;
+import static com.thewonggei.regexTester.RegexMatches.doesNotMatchRegex;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.runners.model.Statement;
 
@@ -19,7 +21,12 @@ public class RegexTestStatement extends Statement {
 	 */
 	public void evaluate() throws Throwable {
 		//This is the implementation implied by this statement
-		assertEquals(regexPojo.shouldItMatch, regexPojo.testString.matches(regex));
+		if( regexPojo.shouldItMatch ) {
+			assertThat(regexPojo.testString, doesMatchRegex(regex));
+		}
+		else {
+			assertThat(regexPojo.testString, doesNotMatchRegex(regex));
+		}
 	}
 	
 }
