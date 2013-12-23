@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.runner.RunWith;
 import org.junit.runner.Runner;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.Suite;
@@ -13,6 +14,19 @@ import org.junit.runners.model.Statement;
 
 import com.thewonggei.regexTester.RegexTestStringsNotFoundException;
 
+/**
+ * A test runner implementation that is used to drive your regular expression test
+ * suites when using JUnit. To use this test runner, you must specify the 
+ * {@link RunWith} annotation in your JUnit test case like this:
+ * 
+ * <code>@RunWith(value=RegexTestSuite.class)</code>
+ * 
+ * Then use the {@link Regex} annotation as well as some form of the {@link RegexTestStrings}
+ * annotation.
+ * 
+ * @author Nick Watts
+ * @since 0.1
+ */
 public class RegexTestSuite extends Suite {
 	private List<RegexTestStringInfo> regexTests;
 	private static final List<Runner> NO_RUNNERS = Collections.<Runner>emptyList();
@@ -71,7 +85,7 @@ public class RegexTestSuite extends Suite {
 /**
  * 
  * @author Nick Watts
- *
+ * @since 0.1
  */
 class RegexRunner extends BlockJUnit4ClassRunner {
 	private RegexTestStringInfo regexTest;
@@ -84,15 +98,9 @@ class RegexRunner extends BlockJUnit4ClassRunner {
 	@Override
 	protected Statement methodInvoker(FrameworkMethod method, Object test) {
 		RegexTestStatement statement = null;
-//		if( getTestClass().getJavaClass().isAnnotationPresent(Regex.class) ) {
 			statement = new RegexTestStatement(super.methodInvoker(method, test),
 					test.getClass().getAnnotation(Regex.class).value(),
 					regexTest);
-//		}
-//		else {
-//			Throwable t = new RegexAnnotationNotFoundException(getTestClass().getClass());
-//			this.collectInitializationErrors(Arrays.asList(t));
-//		}
 		return statement;
 	}
 		
