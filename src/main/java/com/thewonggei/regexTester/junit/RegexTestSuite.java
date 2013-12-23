@@ -14,7 +14,7 @@ import org.junit.runners.model.Statement;
 import com.thewonggei.regexTester.RegexTestStringsNotFoundException;
 
 public class RegexTestSuite extends Suite {
-	private List<RegexPojo> regexTests;
+	private List<RegexTestStringInfo> regexTests;
 	private static final List<Runner> NO_RUNNERS = Collections.<Runner>emptyList();
 	private final ArrayList<Runner> runners = new ArrayList<Runner>();
 	
@@ -28,7 +28,7 @@ public class RegexTestSuite extends Suite {
     }
 
     private void createRunnersForParameters() throws Exception {
-        for (RegexPojo rp : regexTests) {
+        for (RegexTestStringInfo rp : regexTests) {
             RegexRunner runner = new RegexRunner(getTestClass().getJavaClass(), rp);
             runners.add(runner);
         }
@@ -40,15 +40,15 @@ public class RegexTestSuite extends Suite {
     }
     
     @SuppressWarnings("unchecked")
-    private List<RegexPojo> pullRegexTestStringsFromTestClass() throws Exception, Throwable {
+    private List<RegexTestStringInfo> pullRegexTestStringsFromTestClass() throws Exception, Throwable {
         Object regexTestStrings = getRegexTestStringsMethod().invokeExplosively(null);
         if (regexTestStrings instanceof List<?>) {
-            return (List<RegexPojo>) regexTestStrings;
+            return (List<RegexTestStringInfo>) regexTestStrings;
         } else {
             String className = getTestClass().getName();
             String methodName = getRegexTestStringsMethod().getName();
             String message = MessageFormat.format(
-                    "{0}.{1}() must return an object of type List<RegexPojo>.",
+                    "{0}.{1}() must return an object of type List<RegexTestStringInfo>.",
                     className, methodName);
             throw new Exception(message);
         }
@@ -74,9 +74,9 @@ public class RegexTestSuite extends Suite {
  *
  */
 class RegexRunner extends BlockJUnit4ClassRunner {
-	private RegexPojo regexTest;
+	private RegexTestStringInfo regexTest;
 	
-	public RegexRunner(Class<?> clazz, RegexPojo regexTest) throws Exception {
+	public RegexRunner(Class<?> clazz, RegexTestStringInfo regexTest) throws Exception {
 		super(clazz);
 		this.regexTest = regexTest;
 	}

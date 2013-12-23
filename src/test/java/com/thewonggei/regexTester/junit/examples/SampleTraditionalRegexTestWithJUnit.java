@@ -10,25 +10,25 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.thewonggei.regexTester.junit.RegexPojo;
+import com.thewonggei.regexTester.junit.RegexTestStringInfo;
 
 @RunWith(value=Parameterized.class)
 public class SampleTraditionalRegexTestWithJUnit {
-	private RegexPojo rpojo;
+	private RegexTestStringInfo rpojo;
 	private String regex = "^xan.*";
 	
 	@Parameters
-	public static Collection<RegexPojo[]> getTestParameters() {
-		return Arrays.asList(new RegexPojo[][] {
-				{new RegexPojo(true, "xander")},
-				{new RegexPojo(false, "nick")},
-				{new RegexPojo(true, "xantheman")},
-				{new RegexPojo(false, "heisxan")},
-				{new RegexPojo(false, "Xander")}
+	public static Collection<RegexTestStringInfo[]> getTestParameters() {
+		return Arrays.asList(new RegexTestStringInfo[][] {
+				{new RegexTestStringInfo(true, "xander")},
+				{new RegexTestStringInfo(false, "nick")},
+				{new RegexTestStringInfo(true, "xantheman")},
+				{new RegexTestStringInfo(false, "heisxan")},
+				{new RegexTestStringInfo(false, "Xander")}
 		});
 	}
 	
-	public SampleTraditionalRegexTestWithJUnit(RegexPojo rpojo) {
+	public SampleTraditionalRegexTestWithJUnit(RegexTestStringInfo rpojo) {
 		this.rpojo = rpojo;
 	}
 	

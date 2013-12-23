@@ -17,13 +17,13 @@ import com.thewonggei.regexTester.RegexAnnotationNotFoundException;
 public class NoRegexGivenTest {
 
 	@RegexTestStrings
-	public static List<RegexPojo> getTestParameters() {
-		return Arrays.asList(new RegexPojo[] {
-				new RegexPojo(true, "com"),
-				new RegexPojo(true, "com.thewonggei"),
-				new RegexPojo(true, "com.thewonggei.regexTester"),
-				new RegexPojo(false, ".com.thewonggei"),
-				new RegexPojo(false, "www.google.com")
+	public static List<RegexTestStringInfo> getTestParameters() {
+		return Arrays.asList(new RegexTestStringInfo[] {
+				new RegexTestStringInfo(true, "com"),
+				new RegexTestStringInfo(true, "com.thewonggei"),
+				new RegexTestStringInfo(true, "com.thewonggei.regexTester"),
+				new RegexTestStringInfo(false, ".com.thewonggei"),
+				new RegexTestStringInfo(false, "www.google.com")
 		});
 	}
 	

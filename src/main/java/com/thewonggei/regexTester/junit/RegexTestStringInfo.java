@@ -7,7 +7,7 @@ package com.thewonggei.regexTester.junit;
  * @author Nick Watts
  * @since 0.1
  */
-public class RegexPojo {
+public class RegexTestStringInfo {
 	/**
 	 * True if the test string should result in a match against some
 	 * regular expression, false otherwise.
@@ -18,7 +18,7 @@ public class RegexPojo {
 	 */
 	public String testString;
 	
-	public RegexPojo(boolean shouldItMatch, String testString) {
+	public RegexTestStringInfo(boolean shouldItMatch, String testString) {
 		this.shouldItMatch = shouldItMatch;
 		this.testString = testString;
 	}

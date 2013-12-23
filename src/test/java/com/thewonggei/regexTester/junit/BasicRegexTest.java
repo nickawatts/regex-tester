@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.thewonggei.regexTester.junit.Regex;
-import com.thewonggei.regexTester.junit.RegexPojo;
+import com.thewonggei.regexTester.junit.RegexTestStringInfo;
 import com.thewonggei.regexTester.junit.RegexTestSuite;
 import com.thewonggei.regexTester.junit.RegexTestStrings;
 
@@ -24,13 +24,13 @@ import com.thewonggei.regexTester.junit.RegexTestStrings;
 public class BasicRegexTest {
 	
 	@RegexTestStrings
-	public static List<RegexPojo> getTestParameters() {
-		return Arrays.asList(new RegexPojo[] {
-				new RegexPojo(true, "com"),
-				new RegexPojo(true, "com.thewonggei"),
-				new RegexPojo(true, "com.thewonggei.regexTester"),
-				new RegexPojo(false, ".com.thewonggei"),
-				new RegexPojo(false, "www.google.com")
+	public static List<RegexTestStringInfo> getTestParameters() {
+		return Arrays.asList(new RegexTestStringInfo[] {
+				new RegexTestStringInfo(true, "com"),
+				new RegexTestStringInfo(true, "com.thewonggei"),
+				new RegexTestStringInfo(true, "com.thewonggei.regexTester"),
+				new RegexTestStringInfo(false, ".com.thewonggei"),
+				new RegexTestStringInfo(false, "www.google.com")
 		});
 	}
 	

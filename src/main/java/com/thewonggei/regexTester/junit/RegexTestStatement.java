@@ -8,9 +8,9 @@ import org.junit.runners.model.Statement;
 
 public class RegexTestStatement extends Statement {
 	private String regex;
-	private RegexPojo regexPojo;
+	private RegexTestStringInfo regexPojo;
 	
-	public RegexTestStatement(Statement wrappedStatement, String regex, RegexPojo regexPojo) {
+	public RegexTestStatement(Statement wrappedStatement, String regex, RegexTestStringInfo regexPojo) {
 		this.regex = regex;
 		this.regexPojo = regexPojo;
 	}
