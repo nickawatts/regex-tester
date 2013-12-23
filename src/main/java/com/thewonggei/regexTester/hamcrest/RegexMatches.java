@@ -58,12 +58,7 @@ public class RegexMatches extends TypeSafeMatcher<String> {
 		//Otherwise, the result is only true if the the result
 		//of matches is false.
 		else {
-			if( !match ) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return !match;
 		}
 	}
 
