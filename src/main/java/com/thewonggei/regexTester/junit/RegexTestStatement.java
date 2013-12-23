@@ -1,7 +1,7 @@
 package com.thewonggei.regexTester.junit;
 
-import static com.thewonggei.regexTester.RegexMatches.doesMatchRegex;
-import static com.thewonggei.regexTester.RegexMatches.doesNotMatchRegex;
+import static com.thewonggei.regexTester.hamcrest.RegexMatches.doesMatchRegex;
+import static com.thewonggei.regexTester.hamcrest.RegexMatches.doesNotMatchRegex;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.runners.model.Statement;

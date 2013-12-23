@@ -6,8 +6,9 @@ package com.thewonggei.regexTester;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
 import static org.hamcrest.MatcherAssert.assertThat;
-import static com.thewonggei.regexTester.RegexMatches.*;
+import static com.thewonggei.regexTester.hamcrest.RegexMatches.*;
 
 /**
  * @author Nick Watts

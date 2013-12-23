@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.thewonggei.regexTester;
+package com.thewonggei.regexTester.hamcrest;
 
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
@@ -10,7 +7,7 @@ import org.hamcrest.TypeSafeMatcher;
 
 /**
  * @author Nick Watts
- *
+ * @since 0.1
  */
 public class RegexMatches extends TypeSafeMatcher<String> {
 	private String regex = "";
