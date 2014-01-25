@@ -26,7 +26,7 @@ public class TestRegexTestStringInfoFileLoader {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		rtsiLoader = new RegexTestStringInfoFileLoader("src/test/resources/simple-regex-test-strings-sample.properties");
+		rtsiLoader = new RegexTestStringInfoFileLoader("src/test/resources/basic-test-strings-01.properties");
 	}
 
 	@Test(expected=FileNotFoundException.class)

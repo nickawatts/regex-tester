@@ -1,10 +1,15 @@
 package com.thewonggei.regexTester.junit;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Properties;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.junit.runner.RunWith;
 import org.junit.runner.Runner;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -12,6 +17,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 
+import com.thewonggei.regexTester.RegexTestStringInfoFileLoader;
 import com.thewonggei.regexTester.RegexTestStringsNotFoundException;
 
 /**
@@ -55,7 +61,17 @@ public class RegexTestSuite extends Suite {
     
     @SuppressWarnings("unchecked")
     private List<RegexTestStringInfo> pullRegexTestStringsFromTestClass() throws Exception, Throwable {
-        Object regexTestStrings = getRegexTestStringsMethod().invokeExplosively(null);
+        Object regexTestStrings = null;
+        
+        //Look for the annotated method first. If that fails, attempt to load the test strings
+        //from a props file specified with the RegexTestStringsFile annotation.
+		try {
+			regexTestStrings = getRegexTestStringsMethod().invokeExplosively(null);
+		} catch (RegexTestStringsNotFoundException e) {
+			String propsFile = getTestClass().getJavaClass().getAnnotation(RegexTestStringsFile.class).propsFile();
+			regexTestStrings = new RegexTestStringInfoFileLoader(propsFile).load();
+		}
+
         if (regexTestStrings instanceof List<?>) {
             return (List<RegexTestStringInfo>) regexTestStrings;
         } else {
