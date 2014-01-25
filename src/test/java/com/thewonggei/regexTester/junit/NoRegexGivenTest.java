@@ -3,11 +3,6 @@ package com.thewonggei.regexTester.junit;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.thewonggei.regexTester.RegexAnnotationNotFoundException;
-
 /**
  * @author Nick Watts
  * @since This style of library usage has been available since version 0.1.

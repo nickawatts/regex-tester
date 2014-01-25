@@ -1,10 +1,5 @@
 package com.thewonggei.regexTester.junit;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.thewonggei.regexTester.RegexTestStringsNotFoundException;
-
 /**
  * @author Nick Watts
  * @since This style of library usage has been available since version 0.1.

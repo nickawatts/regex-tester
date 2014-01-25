@@ -1,15 +1,10 @@
 package com.thewonggei.regexTester.junit;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Properties;
 
-import org.apache.commons.lang3.BooleanUtils;
 import org.junit.runner.RunWith;
 import org.junit.runner.Runner;
 import org.junit.runners.BlockJUnit4ClassRunner;
