@@ -35,9 +35,14 @@
   <url>https://github.com/nickawatts/regex-tester</url>
   <scm>
   	<url>https://github.com/nickawatts/regex-tester.git</url>
+  	<developerConnection>Nick Watts</developerConnection>
   </scm>
   <issueManagement>
   	<system>GitHub</system>
   	<url>https://github.com/nickawatts/regex-tester/issues</url>
   </issueManagement>
+  <organization>
+  	<name>Nick Watts</name>
+  	<url>http://thewonggei.wordpress.com</url>
+  </organization>
 </project>
