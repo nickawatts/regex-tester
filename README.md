@@ -15,12 +15,6 @@ Below is an example of each.
 
 ##Declaring a regular expression test completely in a JUnit test case
 
-    import com.thewonggei.regexTester.junit.Regex;
-    import com.thewonggei.regexTester.junit.RegexTestStringInfo;
-    import com.thewonggei.regexTester.junit.RegexTestSuite;
-    import com.thewonggei.regexTester.junit.RegexTestStrings;
-    //other necessary imports
-    
     @RunWith(value=RegexTestSuite.class)
     @Regex(value="^com.*")
     public class BasicRegexTest {
@@ -54,3 +48,33 @@ whether or not your expect there to be a match.
 
 From these annotations, the regex-tester library will create a suite of test
 cases. There will be one test case for each test string specified. 
+
+##Using a properties file to declare test strings
+Declaring test strings directly in the JUnit test will get a bit tedious if you
+have more than a dozen or so strings to test against. For larger lists of test
+strings, you can store them in a properties file as in the example below.
+
+    @RunWith(value=RegexTestSuite.class)
+    @Regex(value="[fF]oo.*")
+    @RegexTestStringsFile(propsFile="src/test/resources/test-strings.properties")
+    public class BasicRegexTestWithPropsFile {
+    
+        @Test
+        public void test() {
+        }
+    
+    }
+
+The use of the `@RunWith` and `@Regex` annotations are the same as before but the
+`@RegexTestStringsFile` annotation is new. This annotation simply specifies the
+path to the properties file that contains the test strings, which replaces the
+need to specify a method annotated with `@RegexTestStrings`.
+
+The format of the properties file is that the key is the string to test and the
+value is either the string `true` or `false`, which indicates whether or not the
+application of the regular expression against the test string should produce a 
+match. Here is a brief example of an appropriate properties file:
+
+    foo=true
+    bar=false
+    
