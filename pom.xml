@@ -41,8 +41,17 @@
   	<system>GitHub</system>
   	<url>https://github.com/nickawatts/regex-tester/issues</url>
   </issueManagement>
-  <organization>
-  	<name>Nick Watts</name>
-  	<url>http://thewonggei.wordpress.com</url>
-  </organization>
+  <licenses>
+    <license>
+      <name>The MIT License (MIT)</name>
+      <url>http://opensource.org/licenses/MIT</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+        <name>Nick Watts</name>
+        <url>http://thewonggei.wordpress.com</url>
+    </developer>
+  </developers>
 </project>
