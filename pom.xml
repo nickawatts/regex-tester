@@ -17,7 +17,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>${junit}</version>
     </dependency>
     <dependency>
     	<groupId>org.hamcrest</groupId>
@@ -94,53 +94,17 @@
     </plugins>
   </build>
     
- <!-- 
-    The JDK profiles exist so that the tests (controlled by the Maven Surefire
-    plugin) can be run against various versions of Java. By default, the JDK
-    set in the JAVA_HOME environment variable is used. If you wish to run tests
-    against a different JDK, use Maven's -P argument (i.e. mvn package -Pjdk15).
-    You will have to have defined the appropriate environment variable to run 
-    the non-default profiles.
-    
-    If there is a more automated way to do this, please let me know.
-  -->   
  <profiles>
-      <profile>
-      <id>default_jdk</id>
-      <activation>
-          <activeByDefault>true</activeByDefault>
-      </activation>
-      <properties>
-          <jdk>${env.JAVA_HOME}</jdk>
-      </properties>
-    </profile>
     <profile>
-      <id>jdk15</id>
-      <activation>
-          <activeByDefault>false</activeByDefault>
-      </activation>
-      <properties>
-          <jdk>${env.JAVA_HOME_15}</jdk>
-      </properties>
-    </profile>
-    <profile>
-      <id>jdk16</id>
-      <activation>
-          <activeByDefault>false</activeByDefault>
-      </activation>
-      <properties>
-          <jdk>${env.JAVA_HOME_16}</jdk>
-      </properties>
-    </profile>    
-    <profile>
-      <id>jdk17</id>
-      <activation>
-          <activeByDefault>false</activeByDefault>
-      </activation>
-      <properties>
-          <jdk>${env.JAVA_HOME_17}</jdk>
-      </properties>
-    </profile>    
+        <id>DefaultJunitJDKCombo</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <properties>
+            <junit>4.11</junit>
+            <jdk>${env.JAVA_HOME}</jdk>
+        </properties>
+    </profile>   
   </profiles>
       
 </project>
