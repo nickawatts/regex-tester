@@ -3,8 +3,9 @@ A Java library that reduces the complexity of testing regular expressions with
 JUnit.
 
 #Requirements
-Java 6 and above
-JUnit 4.5 and above
+* Java 6 or above
+* JUnit 4.5 or above
+* Maven 3 (if building the code)
 
 __If you need support for earlier Java or JUnit versions, please submit an [issue
 report](https://github.com/nickawatts/regex-tester/issues) explaining your needs.__
