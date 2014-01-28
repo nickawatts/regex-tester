@@ -83,7 +83,9 @@ public class RegexTestSuite extends Suite {
         List<FrameworkMethod> methods = getTestClass().getAnnotatedMethods(
                 RegexTestStrings.class);
         for (FrameworkMethod each : methods) {
-            if (each.isStatic() && each.isPublic() ) {
+            if (JUnitUtils.isMethodStatic(each) && 
+            	JUnitUtils.isMethodPublic(each) ) 
+            {
                 return each;
             }
         }

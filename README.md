@@ -2,6 +2,13 @@
 A Java library that reduces the complexity of testing regular expressions with
 JUnit.
 
+#Requirements
+Java 6 and above
+JUnit 4.5 and above
+
+__If you need support for earlier Java or JUnit versions, please submit an [issue
+report](https://github.com/nickawatts/regex-tester/issues) explaining your needs.__
+
 #Basic Usage
 regex-tester simplifies the task of testing regular expressions in Java to a 
 matter of specifying the regular expression, the strings to test against and
