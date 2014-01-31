@@ -30,12 +30,11 @@
     	<version>3.1</version>
     </dependency>
   </dependencies>
-  <description>Java library that helps you test regular expressions with JUnit and TestNG.
+  <description>Java library that helps you test regular expressions with JUnit.
 </description>
   <url>https://github.com/nickawatts/regex-tester</url>
   <scm>
   	<url>https://github.com/nickawatts/regex-tester.git</url>
-  	<developerConnection>Nick Watts</developerConnection>
   </scm>
   <issueManagement>
   	<system>GitHub</system>
