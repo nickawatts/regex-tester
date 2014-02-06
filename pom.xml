@@ -4,7 +4,7 @@
 
   <groupId>com.thewonggei</groupId>
   <artifactId>regex-tester</artifactId>
-  <version>0.1</version>
+  <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>regex-tester</name>
@@ -34,7 +34,9 @@
 </description>
   <url>https://github.com/nickawatts/regex-tester</url>
   <scm>
-  	<url>https://github.com/nickawatts/regex-tester.git</url>
+  	<url>git@github.com/nickawatts/regex-tester.git</url>
+  	<connection>scm:git:git@github.com:nickawatts/regex-tester.git</connection>
+  	<developerConnection>scm:git:git@github.com:nickawatts/regex-tester.git</developerConnection>
   </scm>
   <issueManagement>
   	<system>GitHub</system>
@@ -139,4 +141,9 @@
     </profile>   
   </profiles>
       
+ <parent>
+ 	<groupId>org.sonatype.oss</groupId>
+ 	<artifactId>oss-parent</artifactId>
+ 	<version>7</version>
+ </parent>
 </project>
