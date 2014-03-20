@@ -27,8 +27,12 @@ public class MatchesAt extends TypeSafeMatcher<String> {
 	 */
 	@Override
 	public void describeTo(Description description) {
+		String modifiedTextToBeMatched = textToBeMatched;
+		if( modifiedTextToBeMatched.trim().isEmpty() ) {
+			modifiedTextToBeMatched = "<empty-string>";
+		}
 		description.appendText(String.format("%s to match for /%s/ at match position %d.",
-				textToBeMatched, regexMatcher.pattern().pattern(), matchPosition));
+				modifiedTextToBeMatched, regexMatcher.pattern().pattern(), matchPosition));
 	}
 
 	/* (non-Javadoc)
