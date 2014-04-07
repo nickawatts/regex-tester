@@ -4,6 +4,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.junit.runner.RunWith;
 import org.junit.runner.Runner;
@@ -12,8 +13,10 @@ import org.junit.runners.Suite;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 
-import com.thewonggei.regexTester.RegexTestStringInfoFileLoader;
-import com.thewonggei.regexTester.RegexTestStringsNotFoundException;
+import com.thewonggei.regexTester.assertions.RegexAssertion;
+import com.thewonggei.regexTester.assertions.RegexAssertionSet;
+import com.thewonggei.regexTester.assertions.RegexAssertions;
+import com.thewonggei.regexTester.assertions.RegexAssertionsForJUnitNotFoundException;
 
 /**
  * A test runner implementation that is used to drive your regular expression test
@@ -29,24 +32,26 @@ import com.thewonggei.regexTester.RegexTestStringsNotFoundException;
  * @since 0.1
  */
 public class RegexTestSuite extends Suite {
-	private List<RegexTestStringInfo> regexTests;
+	private RegexAssertionSet regexAssertions;
 	private static final List<Runner> NO_RUNNERS = Collections.<Runner>emptyList();
 	private final ArrayList<Runner> runners = new ArrayList<Runner>();
+	private final Pattern compiledRegex;
 	
 	/**
      * Only called reflectively. Do not use programmatically.
      */
     public RegexTestSuite(Class<?> klass) throws Throwable {
         super(klass, NO_RUNNERS);
-        regexTests = pullRegexTestStringsFromTestClass();
+        regexAssertions = pullRegexAssertionSetFromTestClass();
+        compiledRegex = Pattern.compile(getTestClass().getJavaClass().getAnnotation(Regex.class).value());
         createRunnersForParameters();
     }
 
     private void createRunnersForParameters() throws Exception {
-        for (RegexTestStringInfo rp : regexTests) {
-            RegexRunner runner = new RegexRunner(getTestClass().getJavaClass(), rp);
-            runners.add(runner);
-        }
+    	for( RegexAssertion assertion : regexAssertions ) {
+    		RegexRunner runner = new RegexRunner(getTestClass().getJavaClass(), compiledRegex, assertion);
+    		runners.add(runner);
+    	}
     }
     
     @Override
@@ -54,34 +59,25 @@ public class RegexTestSuite extends Suite {
         return runners;
     }
     
-    @SuppressWarnings("unchecked")
-    private List<RegexTestStringInfo> pullRegexTestStringsFromTestClass() throws Exception, Throwable {
-        Object regexTestStrings = null;
-        
-        //Look for the annotated method first. If that fails, attempt to load the test strings
-        //from a props file specified with the RegexTestStringsFile annotation.
-		try {
-			regexTestStrings = getRegexTestStringsMethod().invokeExplosively(null);
-		} catch (RegexTestStringsNotFoundException e) {
-			String propsFile = getTestClass().getJavaClass().getAnnotation(RegexTestStringsFile.class).propsFile();
-			regexTestStrings = new RegexTestStringInfoFileLoader(propsFile).load();
-		}
-
-        if (regexTestStrings instanceof List<?>) {
-            return (List<RegexTestStringInfo>) regexTestStrings;
-        } else {
+    private RegexAssertionSet pullRegexAssertionSetFromTestClass() throws Exception, Throwable {
+    	Object shouldBeRegexAssertionSet = null;
+   		shouldBeRegexAssertionSet = getRegexAssertionsMethod().invokeExplosively(null);
+   		
+   		if( shouldBeRegexAssertionSet instanceof RegexAssertionSet ) {
+   			return (RegexAssertionSet) shouldBeRegexAssertionSet;
+   		} else {
             String className = getTestClass().getName();
-            String methodName = getRegexTestStringsMethod().getName();
+            String methodName = getRegexAssertionsMethod().getName();
             String message = MessageFormat.format(
-                    "{0}.{1}() must return an object of type List<RegexTestStringInfo>.",
+                    "{0}.{1}() must return an object of type RegexAssertionSet.",
                     className, methodName);
             throw new Exception(message);
         }
     }
-
-    private FrameworkMethod getRegexTestStringsMethod() throws Exception {
+    
+    private FrameworkMethod getRegexAssertionsMethod() throws Exception {
         List<FrameworkMethod> methods = getTestClass().getAnnotatedMethods(
-                RegexTestStrings.class);
+                RegexAssertions.class);
         for (FrameworkMethod each : methods) {
             if (JUnitUtils.isMethodStatic(each) && 
             	JUnitUtils.isMethodPublic(each) ) 
@@ -90,7 +86,7 @@ public class RegexTestSuite extends Suite {
             }
         }
 
-        throw new RegexTestStringsNotFoundException(getTestClass().getClass());
+        throw new RegexAssertionsForJUnitNotFoundException(getTestClass().getClass());
     }
 
 }
@@ -101,40 +97,31 @@ public class RegexTestSuite extends Suite {
  * @since 0.1
  */
 class RegexRunner extends BlockJUnit4ClassRunner {
-	private RegexTestStringInfo regexTest;
+	private RegexAssertion regexAssertion;
+	private Pattern compiledRegex;
 	
-	public RegexRunner(Class<?> clazz, RegexTestStringInfo regexTest) throws Exception {
+	public RegexRunner(Class<?> clazz, Pattern compiledRegex, RegexAssertion regexAssertion) throws Exception {
 		super(clazz);
-		this.regexTest = regexTest;
+		this.compiledRegex = compiledRegex;
+		this.regexAssertion = regexAssertion;
 	}
 
 	@Override
 	protected Statement methodInvoker(FrameworkMethod method, Object test) {
 		RegexTestStatement statement = null;
 			statement = new RegexTestStatement(super.methodInvoker(method, test),
-					test.getClass().getAnnotation(Regex.class).value(),
-					regexTest);
+					compiledRegex, regexAssertion);
 		return statement;
 	}
 		
     @Override 
     protected String getName() { 
-    	if( regexTest.shouldItMatch ) {
-    		return String.format("regex_should_match_%s", regexTest.testString);
-    	}
-    	else {
-    		return String.format("regex_should_not_match_%s", regexTest.testString);
-    	}
+    	return regexAssertion.getMethodName();
     }
     
     @Override// The name of the test method 
-    protected String testName(final FrameworkMethod method) { 
-    	if( regexTest.shouldItMatch ) {
-    		return String.format("regex_should_match_%s", regexTest.testString);
-    	}
-    	else {
-    		return String.format("regex_should_not_match_%s", regexTest.testString);
-    	}
+    protected String testName(final FrameworkMethod method) {
+    	return regexAssertion.getMethodName();
     } 
 }
 

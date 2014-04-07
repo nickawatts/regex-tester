@@ -1,10 +1,10 @@
 package com.thewonggei.regexTester.junit;
 
-import static com.thewonggei.regexTester.hamcrest.RegexMatches.doesMatchRegex;
-import static com.thewonggei.regexTester.hamcrest.RegexMatches.doesNotMatchRegex;
-import static org.hamcrest.MatcherAssert.assertThat;
+import java.util.regex.Pattern;
 
 import org.junit.runners.model.Statement;
+
+import com.thewonggei.regexTester.assertions.RegexAssertion;
 
 /**
  * Provides the implementation of the regular expression test method for JUnit.
@@ -13,12 +13,12 @@ import org.junit.runners.model.Statement;
  * @since 0.1
  */
 public class RegexTestStatement extends Statement {
-	private String regex;
-	private RegexTestStringInfo regexPojo;
+	private Pattern compiledRegex;
+	private RegexAssertion assertion;
 	
-	public RegexTestStatement(Statement wrappedStatement, String regex, RegexTestStringInfo regexPojo) {
-		this.regex = regex;
-		this.regexPojo = regexPojo;
+	public RegexTestStatement(Statement wrappedStatement, Pattern compiledRegex, RegexAssertion assertion) {
+		this.compiledRegex = compiledRegex;
+		this.assertion = assertion;
 	}
 
 	/**
@@ -32,12 +32,7 @@ public class RegexTestStatement extends Statement {
 	@Override
 	public void evaluate() throws Throwable {
 		//This is the implementation implied by this statement
-		if( regexPojo.shouldItMatch ) {
-			assertThat(regexPojo.testString, doesMatchRegex(regex));
-		}
-		else {
-			assertThat(regexPojo.testString, doesNotMatchRegex(regex));
-		}
+		assertion.doAssert(compiledRegex);
 	}
 	
 }
