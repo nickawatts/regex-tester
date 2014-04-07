@@ -1,15 +1,11 @@
 package com.thewonggei.regexTester.junit;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.thewonggei.regexTester.junit.Regex;
-import com.thewonggei.regexTester.junit.RegexTestStringInfo;
-import com.thewonggei.regexTester.junit.RegexTestSuite;
-import com.thewonggei.regexTester.junit.RegexTestStrings;
+import com.thewonggei.regexTester.assertions.RegexAssertionSet;
+import com.thewonggei.regexTester.assertions.RegexAssertionSetBuilder;
+import com.thewonggei.regexTester.assertions.RegexAssertions;
 
 /**
  * This test represents the most common usage of the
@@ -23,15 +19,12 @@ import com.thewonggei.regexTester.junit.RegexTestStrings;
 @Regex(value="^com.*")
 public class BasicRegexTest {
 	
-	@RegexTestStrings
-	public static List<RegexTestStringInfo> getTestParameters() {
-		return Arrays.asList(new RegexTestStringInfo[] {
-				new RegexTestStringInfo(true, "com"),
-				new RegexTestStringInfo(true, "com.thewonggei"),
-				new RegexTestStringInfo(true, "com.thewonggei.regexTester"),
-				new RegexTestStringInfo(false, ".com.thewonggei"),
-				new RegexTestStringInfo(false, "www.google.com")
-		});
+	@RegexAssertions
+	public static RegexAssertionSet getRegexAssertions() {
+		return new RegexAssertionSetBuilder()
+			.addMatchesAtAssertion(1, "com", false)
+			.addMatchesAtAssertion(1, "com.thewonggei", true)
+			.build();
 	}
 	
 	@Test
