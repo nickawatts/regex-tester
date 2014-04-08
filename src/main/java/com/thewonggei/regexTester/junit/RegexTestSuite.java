@@ -48,8 +48,9 @@ public class RegexTestSuite extends Suite {
     }
 
     private void createRunnersForParameters() throws Exception {
+    	int count = 1;
     	for( RegexAssertion assertion : regexAssertions ) {
-    		RegexRunner runner = new RegexRunner(getTestClass().getJavaClass(), compiledRegex, assertion);
+    		RegexRunner runner = new RegexRunner(getTestClass().getJavaClass(), compiledRegex, assertion, count++);
     		runners.add(runner);
     	}
     }
@@ -99,11 +100,13 @@ public class RegexTestSuite extends Suite {
 class RegexRunner extends BlockJUnit4ClassRunner {
 	private RegexAssertion regexAssertion;
 	private Pattern compiledRegex;
+	private int suiteNumber = 0;
 	
-	public RegexRunner(Class<?> clazz, Pattern compiledRegex, RegexAssertion regexAssertion) throws Exception {
+	public RegexRunner(Class<?> clazz, Pattern compiledRegex, RegexAssertion regexAssertion, int suiteNumber) throws Exception {
 		super(clazz);
 		this.compiledRegex = compiledRegex;
 		this.regexAssertion = regexAssertion;
+		this.suiteNumber = suiteNumber;
 	}
 
 	@Override
@@ -116,7 +119,7 @@ class RegexRunner extends BlockJUnit4ClassRunner {
 		
     @Override 
     protected String getName() { 
-    	return regexAssertion.getMethodName();
+    	return String.format("%s_suite_%d", regexAssertion.getClass().getSimpleName(), suiteNumber);
     }
     
     @Override// The name of the test method 

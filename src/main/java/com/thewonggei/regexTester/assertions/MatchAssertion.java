@@ -6,6 +6,8 @@ import static org.hamcrest.Matchers.not;
 
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 
 /**
  * @author Nick Watts
@@ -37,7 +39,11 @@ public class MatchAssertion extends AbstractRegexAssertion {
 	 */
 	@Override
 	public String getMethodName() {
-		return "temp-name";
+		String prefix = "regex_does_match";
+		if( !shouldItMatch ) {
+			prefix = "regex_does_not_match";
+		}
+		return String.format("%s_%s_match_in___%s", prefix, ordinal(matchNumber), escapeForMethodName(testString));
 	}
 
 	/**
