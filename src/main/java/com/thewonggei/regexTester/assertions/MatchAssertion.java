@@ -47,15 +47,17 @@ public class MatchAssertion extends AbstractRegexAssertion {
 	}
 
 	/**
-	 * Compares all three fields taken in the constructor method 
-	 * {@link #MatchAssertion(int, String, boolean)}. If all three fields are
-	 * equivalent between the two compared objects then the result will be 
-	 * zero. If all three are not equivalent then the result will be the outcome
-	 * of comparing the fields in the order: {@link MatchAssertion#matchNumber},
-	 * then {@link MatchAssertion#testString} and finally 
-	 * {@link MatchAssertion#shouldItMatch}. When the fields are compared, -1
-	 * is returned if the value of the field in the calling object is less than
-	 * the value of the same field in the object being compared or 1 otherwise.
+	 * If the {@link #inputString} fields of the two objects being compared do
+	 * not match, then this method returns the result of 
+	 * <code>this.inputString.compareTo(compareThis.inputString)</code>. If the
+	 * input strings are equal, the comparison moves on to the {@link #testString}
+	 * fields. Again, if the testString fields are not equal the return value
+	 * of this method is the result of calling 
+	 * <code>this.testString.compareTo(compareThis.testString)</code>. If the
+	 * testString fields are equal then the comparison moves on to the 
+	 * {@link #matchNumber} fields. The values of -1, 0 or 1 are returned 
+	 * depending on whether this.matchNumber is less than, equal to or greater
+	 * than the value of compareThis.matchNumber.
 	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
