@@ -12,8 +12,8 @@ public class RegexAssertionSetBuilder {
 		assertions = new RegexAssertionSet();
 	}
 	
-	public RegexAssertionSetBuilder addMatchesAtAssertion(final int matchNumber, final String testString, final boolean shouldItMatch) {
-		assertions.add(new MatchAssertion(matchNumber, testString, shouldItMatch));
+	public RegexAssertionSetBuilder addMatchesAtAssertion(final int matchNumber, final String testString, final String inputString, final boolean shouldItMatch) {
+		assertions.add(new MatchAssertion(matchNumber, testString, inputString, shouldItMatch));
 		return this;
 	}
 	

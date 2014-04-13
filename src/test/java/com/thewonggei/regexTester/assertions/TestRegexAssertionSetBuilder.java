@@ -21,7 +21,7 @@ public class TestRegexAssertionSetBuilder {
 
 	@Test
 	public void test() {
-		RegexAssertionSet assertions = new RegexAssertionSetBuilder().addMatchesAtAssertion(1, "com", true).build();
+		RegexAssertionSet assertions = new RegexAssertionSetBuilder().addMatchesAtAssertion(1, "com", "com.thewonggei", true).build();
 		assertEquals(1, assertions.size());
 	}
 

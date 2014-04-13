@@ -6,8 +6,6 @@ import static org.hamcrest.Matchers.not;
 
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-
 
 /**
  * @author Nick Watts
@@ -16,21 +14,23 @@ import org.apache.commons.lang3.StringEscapeUtils;
 public class MatchAssertion extends AbstractRegexAssertion {
 	private final int matchNumber;
 	private final String testString;
+	private final String inputString;
 	private final boolean shouldItMatch;
 	
-	public MatchAssertion(final int matchNumber, final String testString, final boolean shouldItMatch) {
+	public MatchAssertion(final int matchNumber, final String testString, final String inputString, final boolean shouldItMatch) {
 		this.matchNumber = matchNumber;
 		this.testString = testString;
+		this.inputString = inputString;
 		this.shouldItMatch = shouldItMatch;
 	}
 	
 	@Override
 	public void doAssert(Pattern compiledRegex) {
 		if( shouldItMatch ) {
-			assertThat(testString, matchesAt(matchNumber, compiledRegex.matcher("")));
+			assertThat(testString, matchesAt(matchNumber, compiledRegex.matcher(inputString)));
 		}
 		else {
-			assertThat(testString, not(matchesAt(matchNumber, compiledRegex.matcher(""))));
+			assertThat(testString, not(matchesAt(matchNumber, compiledRegex.matcher(inputString))));
 		}
 	}
 
@@ -66,39 +66,27 @@ public class MatchAssertion extends AbstractRegexAssertion {
 		}
 		MatchAssertion compareMA = (MatchAssertion)compareThis;
 		int compareResult = 0;
-		if( this.matchNumber == compareMA.matchNumber &&
-			this.testString.equals(compareMA.testString) &&
-			this.shouldItMatch == compareMA.shouldItMatch ) {
-			compareResult = 0;
-		}
-		else {
-			if( this.matchNumber == compareMA.matchNumber &&
-				this.testString.equals(compareMA.testString) ) {
-				if( this.shouldItMatch ) {
-					compareResult = 1;
-				}
-				else {
-					compareResult = -1;
-				}
-			}
-			else if( this.testString.equals(compareMA.testString) &&
-					 this.shouldItMatch == compareMA.shouldItMatch ) {
+		
+		if( this.inputString.equals(compareMA.inputString) ) {
+			if( this.testString.equals(compareMA.testString) ) {
 				if( this.matchNumber < compareMA.matchNumber ) {
 					compareResult = -1;
+				}
+				else if( this.matchNumber == compareMA.matchNumber ) {
+					compareResult = 0;
 				}
 				else {
 					compareResult = 1;
 				}
 			}
 			else {
-				if( this.testString.compareTo(compareMA.testString) < 0 ) {
-					compareResult = -1;
-				}
-				else {
-					compareResult = 1;
-				}
+				compareResult = this.testString.compareTo(compareMA.testString);
 			}
 		}
+		else {
+			compareResult = this.inputString.compareTo(compareMA.inputString);
+		}
+		
 		return compareResult;
 	}
 	

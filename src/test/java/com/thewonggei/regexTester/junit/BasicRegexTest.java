@@ -13,17 +13,20 @@ import com.thewonggei.regexTester.assertions.RegexAssertions;
  * and a small list of test strings are given.
  * 
  * @author Nick Watts
- * @since This style of library usage has been available since version 0.1.
+ * @since This style of library usage has been available since version 0.2.
  */
 @RunWith(value=RegexTestSuite.class)
-@Regex(value="^com.*")
+@Regex(value="www\\.\\w+\\.")
 public class BasicRegexTest {
 	
 	@RegexAssertions
 	public static RegexAssertionSet getRegexAssertions() {
+		String input = "www.google.com";
+		
 		return new RegexAssertionSetBuilder()
-			.addMatchesAtAssertion(1, "com", false)
-			.addMatchesAtAssertion(1, "com.thewonggei", true)
+			.addMatchesAtAssertion(1, "www.google.", input, true)
+			.addMatchesAtAssertion(1, "org.apache", input, false)
+			.addMatchesAtAssertion(1, "com.thewonggei", input, false)
 			.build();
 	}
 	
