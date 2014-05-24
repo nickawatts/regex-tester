@@ -25,8 +25,8 @@ import com.thewonggei.regexTester.assertions.RegexAssertionsForJUnitNotFoundExce
  * 
  * <code>@RunWith(value=RegexTestSuite.class)</code>
  * 
- * Then use the {@link Regex} annotation as well as some form of the {@link RegexTestStrings}
- * annotation.
+ * Then use the {@link Regex} annotation as well as some form of the 
+ * {@link RegexTestStrings} or {@link RegexAssertions} annotation.
  * 
  * @author Nick Watts
  * @since 0.1
@@ -60,6 +60,16 @@ public class RegexTestSuite extends Suite {
         return runners;
     }
     
+    /**
+     * Execute the method from the test class annotated with 
+     * {@link RegexAssertionSet} to obtain the list of {@link RegexAssertion}s
+     * that are to be tested by the generated test cases.
+     * 
+     * @return The set of {@link RegexAssertion}s  that are to be tested by the 
+     * generated test cases.
+     * @throws Exception
+     * @throws Throwable
+     */
     private RegexAssertionSet pullRegexAssertionSetFromTestClass() throws Exception, Throwable {
     	Object shouldBeRegexAssertionSet = null;
    		shouldBeRegexAssertionSet = getRegexAssertionsMethod().invokeExplosively(null);
@@ -76,6 +86,13 @@ public class RegexTestSuite extends Suite {
         }
     }
     
+    /**
+     * @return The first instance of a public, static method annotated with 
+     * {@link RegexAssertions} found in the test class. The method name does 
+     * not matter.
+     * 
+     * @throws Exception If the desired method signature is not found.
+     */
     private FrameworkMethod getRegexAssertionsMethod() throws Exception {
         List<FrameworkMethod> methods = getTestClass().getAnnotatedMethods(
                 RegexAssertions.class);
