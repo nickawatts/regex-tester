@@ -17,6 +17,11 @@ public class RegexAssertionSetBuilder {
 		return this;
 	}
 	
+	public RegexAssertionSetBuilder addGroupMatchesAtAssertion(final int matchNumber, final String testString, final String inputString, final boolean shouldItMatch) {
+		assertions.add(new CapturedGroupAssertion(matchNumber, testString, inputString, shouldItMatch));
+		return this;
+	}
+	
 	public RegexAssertionSet build() {
 		return assertions;
 	}

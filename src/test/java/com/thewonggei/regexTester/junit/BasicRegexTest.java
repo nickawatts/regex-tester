@@ -16,19 +16,17 @@ import com.thewonggei.regexTester.assertions.RegexAssertions;
  * @since This style of library usage has been available since version 0.2.
  */
 @RunWith(value=RegexTestSuite.class)
-@Regex(value="[mM]ario")
+@Regex(value="^abc(def)g")
 public class BasicRegexTest {
 	
 	@RegexAssertions
 	public static RegexAssertionSet getRegexAssertions() {
-		String input = "Mario Andretti is a race car driver. There is a mario in the Super Mario Brothers line of video games.";
+		String input = "abcdefg";
 		
 		return new RegexAssertionSetBuilder()
-			.addMatchesAtAssertion(1, "Mario", input, true)
-			.addMatchesAtAssertion(1, "mario", input, false)
-			.addMatchesAtAssertion(2, "mario", input, true)
-			.addMatchesAtAssertion(3, "Mario", input, true)
-			.addMatchesAtAssertion(3, "mario", input, false)
+			.addMatchesAtAssertion(1, "abcdefg", input, true)
+			.addMatchesAtAssertion(1, "ABCDEFG", input, false)
+			.addGroupMatchesAtAssertion(1, "def", input, true)
 			.build();
 	}
 	

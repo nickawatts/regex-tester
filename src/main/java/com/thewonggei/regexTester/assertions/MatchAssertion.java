@@ -63,9 +63,17 @@ public class MatchAssertion extends AbstractRegexAssertion {
 	 */
 	@Override
 	public int compareTo(RegexAssertion compareThis) {
-		if( !(compareThis instanceof MatchAssertion) ) {
+		if( !(compareThis instanceof MatchAssertion) &&
+				(compareThis instanceof RegexAssertion)) 
+		{
+			//For simplicity, an instance of this class is always "more than"
+			//an instance of another class in the same hierarchy.
+			return 1;
+		}
+		else if( !(compareThis instanceof MatchAssertion) ) {
 			throw new IllegalArgumentException("Can only compare against type MatchAssertion.");
 		}
+
 		MatchAssertion compareMA = (MatchAssertion)compareThis;
 		int compareResult = 0;
 		
