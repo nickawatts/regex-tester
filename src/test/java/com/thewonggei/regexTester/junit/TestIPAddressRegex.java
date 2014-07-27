@@ -29,6 +29,9 @@ public class TestIPAddressRegex {
 			.addMatchesAtAssertion(1, "255.255.255.255", "255.255.255.255", true)
 			.addMatchesAtAssertion(1, "256.256.256.256", "256.256.256.256", false)
 			.addMatchesAtAssertion(1, "A.B.C.D", "A.B.C.D", false)
+			.addMatchesAtAssertion(2, "192.168.1.1", "192.168.1.0 192.168.1.1", true)
+			.addMatchesAtAssertion(1, "192.168.1.0", "192.168.1.0 192.168.1.1", true)
+			.addMatchesAtAssertion(1, "192.168.1.1", "192.168.1.0 192.168.1.1", false)
 			.build();
 	}
 	
