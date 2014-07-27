@@ -24,14 +24,21 @@ public class TestIPAddressRegex {
 		 * with @RegexAssertions defines the things to assert about the regex.
 		 */
 		return new RegexAssertionSetBuilder()
-			.addMatchesAtAssertion(1, "0.0.0.0", "0.0.0.0", true)
-			.addMatchesAtAssertion(1, "127.0.0.1", "127.0.0.1", true)
-			.addMatchesAtAssertion(1, "255.255.255.255", "255.255.255.255", true)
-			.addMatchesAtAssertion(1, "256.256.256.256", "256.256.256.256", false)
-			.addMatchesAtAssertion(1, "A.B.C.D", "A.B.C.D", false)
+			.addMatchAssertion("0.0.0.0")
+			.addMatchAssertion("127.0.0.1")
+			.addMatchAssertion("255.255.255.255")
+			.addNoMatchAssertion("256.256.256.256")
+			.addNoMatchAssertion("A.B.C.D")
+			.addNoMatchAssertion("-1.-1.-1.-1")
 			.addMatchesAtAssertion(2, "192.168.1.1", "192.168.1.0 192.168.1.1", true)
 			.addMatchesAtAssertion(1, "192.168.1.0", "192.168.1.0 192.168.1.1", true)
 			.addMatchesAtAssertion(1, "192.168.1.1", "192.168.1.0 192.168.1.1", false)
+			// IPv6 style address
+			.addNoMatchAssertion("2001:0db8:0000:0000:0000:ff00:0042:8329")
+			// MAC Address
+			.addNoMatchAssertion("FF:FF:FF:FF:FF:FF")
+			// Street Address :)
+			.addNoMatchAssertion("123 North Melody Lane")
 			.build();
 	}
 	

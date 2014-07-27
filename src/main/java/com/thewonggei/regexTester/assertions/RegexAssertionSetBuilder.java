@@ -13,10 +13,20 @@ public class RegexAssertionSetBuilder {
 	}
 	
 	public RegexAssertionSetBuilder addMatchesAtAssertion(final int matchNumber, final String testString, final String inputString, final boolean shouldItMatch) {
-		assertions.add(new MatchAssertion(matchNumber, testString, inputString, shouldItMatch));
+		assertions.add(new SpecificMatchAssertion(matchNumber, testString, inputString, shouldItMatch));
 		return this;
 	}
 	
+	public RegexAssertionSetBuilder addMatchAssertion(final String inputString) {
+		assertions.add(new MatchAssertion(inputString));
+		return this;
+	}
+
+	public RegexAssertionSetBuilder addNoMatchAssertion(final String inputString) {
+		assertions.add(new NoMatchAssertion(inputString));
+		return this;
+	}
+
 	public RegexAssertionSetBuilder addGroupMatchesAtAssertion(final int matchNumber, final String testString, final String inputString, final boolean shouldItMatch) {
 		assertions.add(new CapturedGroupAssertion(matchNumber, testString, inputString, shouldItMatch));
 		return this;

@@ -11,14 +11,14 @@ import org.junit.Test;
  *
  */
 public class TestAbstractRegexAssertionMethods {
-	private MatchAssertion ma;
+	private SpecificMatchAssertion ma;
 	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		ma = new MatchAssertion(1, "test string", "input string", true);
+		ma = new SpecificMatchAssertion(1, "test string", "input string", true);
 	}
 
 	@Test
