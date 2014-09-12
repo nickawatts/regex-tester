@@ -21,14 +21,15 @@ public class BasicRegexTest {
 	@RegexAssertions
 	public static RegexAssertionSet getRegexAssertions() {
 		/*
-		 * A public static method with the name getRegexAssertions and annotated 
+		 * A public static method named getRegexAssertions and annotated 
 		 * with @RegexAssertions defines the things to assert about the regex.
 		 */
 		return new RegexAssertionSetBuilder()
-			.addMatchesAtAssertion(1, "The Journal of Physics", "The Journal of Physics", true)
-			.addMatchesAtAssertion(1, "The Journal of Physics Letters", "The Journal of Physics Letters", false)
-			.addMatchesAtAssertion(1, "The Journal of Chemistry", "The Journal of Physics", false)
+			.addMatchAssertion("The Journal of Physics")
+			.addNoMatchAssertion("The Journal of Physics Letters")
+			.addMatchAssertion("The Journal of Chemistry")
 			.addGroupMatchesAtAssertion(1, "Physics", "The Journal of Physics", true)
+			.addGroupMatchesAtAssertion(1, "Physics", "The Journal of Chemistry", false)
 			.build();
 	}
 	
