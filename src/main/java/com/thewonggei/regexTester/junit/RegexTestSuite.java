@@ -62,7 +62,7 @@ public class RegexTestSuite extends Suite {
     
     /**
      * Execute the method from the test class annotated with 
-     * {@link RegexAssertionSet} to obtain the list of {@link RegexAssertion}s
+     * {@link RegexAssertions} to obtain the list of {@link RegexAssertion}s
      * that are to be tested by the generated test cases.
      * 
      * @return The set of {@link RegexAssertion}s  that are to be tested by the 
