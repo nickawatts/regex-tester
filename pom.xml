@@ -17,12 +17,12 @@
 		<repository>
 			<id>sonatype-nexus-staging</id>
 			<name>Sonatype OSS</name>
-			<url>http://oss.sonatype.org/nexus/content/repositories/releases/</url>
+			<url>http://oss.sonatype.org/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>sonatype-nexus-snapshots</id>
 			<name>Sonatype OSS</name>
-			<url>http://oss.sonatype.org/nexus/content/repositories/snapshots/</url>
+			<url>http://oss.sonatype.org/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
