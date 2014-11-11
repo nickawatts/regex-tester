@@ -88,4 +88,24 @@ public class TestCapturedGroupMatchesAt {
 		assertThat("jk", not(matchesGroupAt(1, "abc(def)ghi(jk)lmn", "abcdefghijklmn")));
 	}
 	
+	@Test
+	public void test_multiple_matches_and_single_capture_group() {
+		pattern = Pattern.compile("\\s+([a-zA-Z]+)ing.?");
+		String input = "Those who weren't eating were waiting or singing. The ingenious design was not working!";
+		assertThat("eat", matchesGroupAt(1, pattern.matcher(input)));
+		assertThat("wait", matchesGroupAt(2, 1, pattern.matcher(input)));
+		assertThat("sing", matchesGroupAt(3, 1, pattern.matcher(input)));
+		assertThat("work", matchesGroupAt(4, 1, pattern.matcher(input)));
+	}
+	
+	@Test
+	public void test_multiple_matches_and_multiple_capture_groups() {
+		pattern = Pattern.compile("(\\w+)\\-(\\w+)");
+		String input = "Please keep the e-Content info up-to-date.";
+		assertThat("e", matchesGroupAt(1, pattern.matcher(input)));
+		assertThat("Content", matchesGroupAt(2, pattern.matcher(input)));
+		assertThat("up", matchesGroupAt(2, 1, pattern.matcher(input)));
+		assertThat("to", matchesGroupAt(2, 2, pattern.matcher(input)));
+	}
+	
 }
