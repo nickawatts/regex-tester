@@ -2,7 +2,7 @@
 A Java library that reduces the complexity of testing regular expressions with
 JUnit.
 
-#Requirements
+# Requirements
 * Java 6 or above
 * JUnit 4.5 or above
 * Maven 3 (if building the code)
@@ -10,7 +10,7 @@ JUnit.
 __If you need support for earlier Java or JUnit versions, please submit an [issue
 report](https://github.com/nickawatts/regex-tester/issues) explaining your needs.__
 
-#Basic Usage
+# Basic Usage
 regex-tester simplifies the task of testing regular expressions in Java to a 
 matter of specifying the regular expression, the strings to test against and
 whether or not each string should produce a match. In other words, regex-tester
@@ -21,7 +21,7 @@ There are two flavors of test specifications in regex-tester: declare the
 strings to be tested in the JUnit test case or declare them in a properties file.
 Below is an example of each.
 
-##Declaring a regular expression test completely in a JUnit test case
+## Declaring a regular expression test completely in a JUnit test case
 
     @RunWith(value=RegexTestSuite.class)
     @Regex(value="^com.*")
@@ -57,7 +57,7 @@ whether or not your expect there to be a match.
 From these annotations, the regex-tester library will create a suite of test
 cases. There will be one test case for each test string specified. 
 
-##Using a properties file to declare test strings
+## Using a properties file to declare test strings
 Declaring test strings directly in the JUnit test will get a bit tedious if you
 have more than a dozen or so strings to test against. For larger lists of test
 strings, you can store them in a properties file as in the example below.
