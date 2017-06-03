@@ -9,12 +9,12 @@ import org.junit.Test;
  * @since 0.2
  *
  */
-public class TestRegeAnnotationNotFoundException {
+public class TestRegexAnnotationNotFoundException {
 
 	@Test
 	public void test() {
 		RegexAnnotationNotFoundException ex = new RegexAnnotationNotFoundException(this.getClass());
-		assertEquals("The com.thewonggei.regexTester.junit.Regex annotation was expected on test class com.thewonggei.regexTester.TestRegeAnnotationNotFoundException but was not found.", ex.getMessage());
+		assertEquals("The com.thewonggei.regexTester.junit.Regex annotation was expected on test class com.thewonggei.regexTester.TestRegexAnnotationNotFoundException but was not found.", ex.getMessage());
 	}
 
 }
