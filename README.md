@@ -1,4 +1,4 @@
-#regex-tester
+# regex-tester
 A Java library that reduces the complexity of testing regular expressions with
 JUnit.
 
