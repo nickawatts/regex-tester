@@ -71,6 +71,11 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+			</plugin>
 			<!-- The Surefire plugin is specifically configured to allow for running 
 				the build against various Java versions. See the profiles section below for 
 				more details. -->
