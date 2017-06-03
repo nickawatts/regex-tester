@@ -67,3 +67,13 @@ automatically executed when you run the unit test.
 The test suite for the API itself is meant to demonstrate its capabilities. There are many tests and they're commented
 to help you figure out how to use the library. Start with the `BasicRegextTest` class. It shows the most common usage
 scenarios for the libray, just like in the *Basic Usage* section above.
+
+# Download
+
+## Maven
+
+    <dependency>
+        <groupId>com.thewonggei</groupId>
+        <artifactId>regex-tester</artifactId>
+        <version>0.2</version>
+    </dependency>
