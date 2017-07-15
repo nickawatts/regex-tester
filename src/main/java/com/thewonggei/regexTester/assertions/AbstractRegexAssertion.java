@@ -15,7 +15,7 @@ public abstract class AbstractRegexAssertion implements RegexAssertion, Comparab
 	 * 
 	 * @param i The integer to convert.
 	 * @return The ordinal string representation.
-	 * @see http://stackoverflow.com/a/20932775/1786836 (origin of this method).
+	 * http://stackoverflow.com/a/20932775/1786836 (origin of this method).
 	 */
 	protected String ordinal(int i) {
 	    return i % 100 == 11 || i % 100 == 12 || i % 100 == 13 ? i + "th" : i + new String[]{"th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"}[i % 10];
